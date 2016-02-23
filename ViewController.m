@@ -83,10 +83,9 @@
         }];
     };
     
-//    NSError *error = nil;
+
     NSArray *key = @[@"duration"];
-//    [asset statusOfValueForKey:@"duration" error:&error];
-    
+
     [asset loadValuesAsynchronouslyForKeys:key completionHandler:^{
         NSError *errorInBlock = nil;
         AVKeyValueStatus playableStatus = [asset statusOfValueForKey:@"duration" error:&errorInBlock];
@@ -134,26 +133,6 @@
     AudioFileID outputAudioFile;
     
     AudioStreamBasicDescription myPCMFormat;
-//    UInt32 floatByteSize   = sizeof(float);
-//    myPCMFormat.mChannelsPerFrame = 2;
-//    myPCMFormat.mBitsPerChannel   = 8 * floatByteSize;
-//    myPCMFormat.mBytesPerFrame    = floatByteSize;
-//    myPCMFormat.mFramesPerPacket  = 1;
-//    myPCMFormat.mBytesPerPacket   = myPCMFormat.mFramesPerPacket * myPCMFormat.mBytesPerFrame;
-//    myPCMFormat.mFormatFlags      = kAudioFormatFlagIsFloat|kAudioFormatFlagIsNonInterleaved;
-//
-//    myPCMFormat.mFormatID         = kAudioFormatLinearPCM;
-//    myPCMFormat.mSampleRate       = 44100;
-    
-//    AudioComponentDescription desc;
-//    desc.componentType = kAudioUnitType_Output;
-//    desc.componentSubType = kAudioUnitSubType_RemoteIO;
-//    desc.componentManufacturer = kAudioUnitManufacturer_Apple;
-//    desc.componentFlags = 0;
-//    desc.componentFlagsMask = 0;
-////
-//    AudioComponent defaultOutput = AudioComponentFindNext(NULL, &desc);
-//    AudioComponentInstanceNew(defaultOutput ,&_audioUnit);
     
     myPCMFormat.mSampleRate       = 44100;
     myPCMFormat.mFormatID         = kAudioFormatLinearPCM;
@@ -175,10 +154,6 @@
                            kAudioFileFlags_EraseFile,
                            &outputAudioFile);
     
-    
-    
-//    AudioUnitSetProperty(_audioUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &myPCMFormat, sizeof(myPCMFormat));
-    
     //Read data into buffer
     SInt64 readPoint  = dataSize-1;
     UInt64 writePoint = 0;
@@ -192,9 +167,6 @@
         UInt32 bytesToWrite = bytesToRead;
         AudioFileWriteBytes(outputAudioFile, false, writePoint, &bytesToWrite, theData);
         // bytesToWrite is now the amount of data actually written
-        // NOTE: You are assuming bytesToWrite == bytesToRead, which is not necessarily true.
-        // You should ensure all the data is written before you read again.
-        // I'm leaving that up to you.
         
         writePoint += bytesToWrite;
         readPoint -= bytesToRead;
