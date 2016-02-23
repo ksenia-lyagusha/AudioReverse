@@ -1,0 +1,11 @@
+build/*
+*.pbxuser
+*.xcworkspace
+
+xcuserdata
+
+.DS_Store
+
+Pods
+Pods/*
+Podfile.lock
